@@ -60,5 +60,17 @@ describe('Campanhas', () => {
     } catch (e) {
       assert(e);
     }
-    });
+  });
+
+  it('permite manager pagar uma request', async () => {
+    await campanhaContrato.methods.criarRequisicao('memória', '200', accounts[1])
+      .send({
+        from: endereco,
+        gas: '1000000'
+      });
+
+/*    const requisicao = await campanhaContrato.methods.requisicoes(0).call();
+    console.log(requisicao);
+    assert.equal('memória', requisicao.description);*/
+  });
 });
