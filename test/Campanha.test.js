@@ -50,4 +50,15 @@ describe('Campanhas', () => {
     let contribuiu = await campanhaContrato.methods.aprovadores(accounts[1]).call();
     assert(contribuiu);
   });
+
+  it('contribuição mínima', async() => {
+    try {
+        await campanhaContrato.methods.contribute().send({
+          value: '250',
+          from: accounts[1]
+        });
+    } catch (e) {
+      assert(e);
+    }
+    });
 });
