@@ -1,5 +1,16 @@
-import React from 'react';
+import React, {Component} from 'react';
+import factory from '../etherium/factory';
 
-export default () => {
-  return <h1>NOVO 1</h1>;
-};
+class CampaignIndex extends Component {
+  async ComponentDidMount(){
+    const campanhas = await factory.methods.getDeployed().call();
+
+    console.log(campanhas);
+  }
+
+  render(){
+    return <div>asd</div>
+  }
+}
+
+export default CampaignIndex;
