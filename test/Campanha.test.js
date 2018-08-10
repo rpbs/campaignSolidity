@@ -69,8 +69,6 @@ describe('Campanhas', () => {
         gas: '1000000'
       });
 
-    const requisicao = await campanhaContrato.methods.requisicoes(0).call();
-    console.log(requisicao);
-    assert.equal('memória', requisicao.description);
+    const requisicao = await campanhaContrato.methods.requisicoes(0).call();    assert.equal('memória', requisicao.description);
   });
 });
