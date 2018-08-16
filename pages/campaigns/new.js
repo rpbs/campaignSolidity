@@ -7,11 +7,15 @@ import web3 from '../../etherium/web3';
 class CampaignNew extends Component {
   state = {
     contribuicaoMinima: '',
-    errorMessage: ''
+    errorMessage: '',
+    loading: false
   };
 
   onSubmit = async (event) => {
     event.preventDefault();
+    
+    this.setState({ loading: true, errorMessage: '' });
+    
     try {
       const contas = await web3.eth.getAccounts();
       await factory.methods
@@ -21,6 +25,8 @@ class CampaignNew extends Component {
         });
     } catch (e) {
       this.setState({ errorMessage: e.message });
+    } finally {
+      this.setState({ loading: false });
     }
   };
 
@@ -45,7 +51,7 @@ class CampaignNew extends Component {
               header='Deu pau'
               content={this.state.errorMessage}
             />
-          <Button primary>Criar</Button>
+          <Button loading={this.state.loading} primary>Criar</Button>
         </Form>
       </Layout>
     );
