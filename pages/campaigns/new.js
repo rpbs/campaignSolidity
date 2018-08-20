@@ -3,6 +3,7 @@ import Layout from '../../components/Layout'
 import { Button, Checkbox, Form, Input, Message } from 'semantic-ui-react'
 import factory from '../../etherium/factory';
 import web3 from '../../etherium/web3';
+import { Router } from '../../routes';
 
 class CampaignNew extends Component {
   state = {
@@ -13,9 +14,9 @@ class CampaignNew extends Component {
 
   onSubmit = async (event) => {
     event.preventDefault();
-    
+
     this.setState({ loading: true, errorMessage: '' });
-    
+
     try {
       const contas = await web3.eth.getAccounts();
       await factory.methods
@@ -23,6 +24,8 @@ class CampaignNew extends Component {
         .send({
           from: contas[0]
         });
+
+      Router.push("/");
     } catch (e) {
       this.setState({ errorMessage: e.message });
     } finally {

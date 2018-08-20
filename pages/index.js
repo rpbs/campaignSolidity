@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import factory from '../etherium/factory';
 import { Card, Button } from 'semantic-ui-react';
 import Layout from '../components/Layout'
+import { Link } from '../routes';
+
 class CampaignIndex extends Component {
 
   // criar instancias de método na própria classe...
@@ -20,7 +22,11 @@ class CampaignIndex extends Component {
     const items = this.props.campanhas.map(address =>{
       return {
         header:address,
-        description: <a>Ver campanha</a>,
+        description: (
+          <Link route={`campaigns/${address}`}>
+            <a>Ver campanha</a>
+          </Link>
+        ),
         meta: "asd",
         fluid: true
       }
@@ -36,13 +42,17 @@ class CampaignIndex extends Component {
       <Layout>
         <div>
           <h3>Lista de campanhas</h3>
-          <Button
-            content="Criar campanha"
-            icon="add circle"
-            primary={true}
-            floated="right"
-            />
-            {this.renderCampanhas()}
+          <Link route="campaigns/new">
+            <a>
+              <Button
+                content="Criar campanha"
+                icon="add circle"
+                primary={true}
+                floated="right"
+                />
+                {this.renderCampanhas()}
+            </a>
+          </Link>
         </div>
       </Layout>
     )
