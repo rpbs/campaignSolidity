@@ -25,7 +25,7 @@ class CampaignIndex extends Component {
         description: (
           <Link route={`campaigns/${address}`}>
             <a>Ver campanha</a>
-          </Link>
+          </ Link>
         ),
         meta: "asd",
         fluid: true

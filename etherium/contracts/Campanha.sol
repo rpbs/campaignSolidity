@@ -73,6 +73,22 @@ contract Campanha {
 
     }
 
+    function getSummary() public view returns (
+        uint, uint, uint, uint, address
+      ) {
+      return (
+        contribuicaoMinima,
+        this.balance,
+        requisicoes.length,
+        aprovadoresCount,
+        manager
+      );
+    }
+
+    function getRequestCount() public view returns (uint) {
+      return requisicoes.length; 
+    }
+
     modifier managerOnly() {
         require(msg.sender == manager);
         _;

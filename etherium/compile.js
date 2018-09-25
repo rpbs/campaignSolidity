@@ -5,6 +5,7 @@ const solc = require('solc');
 const buildPath = path.resolve(__dirname, 'build');
 fs.removeSync(buildPath);
 
+
 const campanhaPath = path.resolve(__dirname, 'contracts', 'Campanha.sol');
 const source = fs.readFileSync(campanhaPath, 'utf8');
 const output = solc.compile(source, 1).contracts;
