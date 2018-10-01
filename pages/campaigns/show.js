@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import Layout from '../../components/Layout';
 import ContributeForm from '../../components/ContributeForm';
 import Campaign from '../../etherium/campaign';
-import { Card, Grid } from 'semantic-ui-react';
+import { Card, Grid, Button } from 'semantic-ui-react';
+import { Link } from '../../routes';
+
 
 class CampaignShow extends Component {
   static async getInitialProps(props){
-    let address = props;
-    const campanha = Campaign(props.query.address);
+    let address = props.query.address;
+    const campanha = Campaign(address);
     const dados = await campanha.methods.getSummary().call();
-    //const dados = campanha.methods.getSummary().call();
-
-    console.log(dados);
 
     return {
       contribuicaoMinima: dados[0],
       balance: dados[1],
       requisicoes: dados[2],
       aprovadoresCount: dados[3],
-      manager: dados[4]
+      manager: dados[4],
+      address: address
     };
   }
 
@@ -71,12 +71,23 @@ class CampaignShow extends Component {
       <Layout>
         <h3>Show</h3>
         <Grid>
-          <Grid.Column width={10}>
-            {this.renderCards()}
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <ContributeForm />
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={10}>
+              {this.renderCards()}
+            </Grid.Column>
+            <Grid.Column width={6}>
+              <ContributeForm address={this.props.address} />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+            <Link route={`/campaigns/${this.props.address}/requests`}>
+              <a>
+                <Button>Ver requisições</Button>
+              </a>
+            </Link>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </Layout>
     );
