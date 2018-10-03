@@ -6,33 +6,31 @@ import Campaign from '../../../etherium/campaign';
 import web3 from '../../../etherium/web3';
 
 class RequestNew extends Component {
-
+  static async getInitialProps(props){
+    const { address } = props.query;
+    return { address };
+  }
   state = {
     value: '',
     description: '',
     recipient: ''
   };
 
-  static async getInitialProps(props){
-    const { address } = props.query;
-    return { address };
-  }
-
   onSubmit = async event => {
     event.preventDefault();
-
+    console.log('asd');
     const {value, description, recipient} = this.state;
 
     try {
       const campaign = Campaign(this.props.address);
-      const accounts = web3.eth.getAccounts();
-      await campaign.methods.createRequest(
+      const accounts = await web3.eth.getAccounts();
+      await campaign.methods.criarRequisicao(
         description,
         web3.utils.toWei(value, 'ether'),
         recipient)
         .send({ from: accounts[0] });
     } catch (e) {
-
+      console.log(e);
     } finally {
 
     }

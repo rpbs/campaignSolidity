@@ -42,7 +42,6 @@ class CampaignIndex extends Component {
       <Layout>
         <div>
           <h3>Lista de campanhas</h3>
-          <Link route="campaigns/new">
             <a>
               <Button
                 content="Criar campanha"
@@ -52,7 +51,6 @@ class CampaignIndex extends Component {
                 />
                 {this.renderCampanhas()}
             </a>
-          </Link>
         </div>
       </Layout>
     )
