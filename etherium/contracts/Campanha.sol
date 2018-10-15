@@ -86,7 +86,7 @@ contract Campanha {
     }
 
     function getRequestCount() public view returns (uint) {
-      return requisicoes.length; 
+      return requisicoes.length;
     }
 
     modifier managerOnly() {
