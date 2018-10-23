@@ -12,9 +12,10 @@ class RequestIndex extends Component {
     const requesCount = await campaign.methods.getRequestCount().call();
     const aprovadoresCount = await campaign.methods.aprovadoresCount().call();
     const requests = await Promise.all(
-      Array(requesCount)
+      Array(parseInt(requesCount))
         .fill()
         .map((element, index) => {
+          console.log(index);
           return campaign.methods.requisicoes(index).call();
         })
     );
@@ -22,6 +23,7 @@ class RequestIndex extends Component {
   }
 
   renderRow(){
+    console.log(this.props.requests);
     return this.props.requests.map((request, index) => {
       return (<RequestRow
         id={index}
@@ -62,7 +64,9 @@ class RequestIndex extends Component {
            {this.renderRow()}
           </Body>
         </Table>
+        <div>Total de: {this.props.requesCount} requisições</div>
       </Layout>
+
     );
   }
 }

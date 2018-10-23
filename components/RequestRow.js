@@ -20,13 +20,16 @@ class RequestRow extends Component {
     await campaign.methods.finalizarRequesicao(this.props.id).send({
       from: accounts[0]
     });
+
   };
 
   render(){
     const { Row, Cell } = Table;
     const { id, request, aprovadoresCount } = this.props;
+    const podeFinalizar = (request.aprovadoresCount > aprovadoresCount / 2) && !request.complete;
+    
     return (
-      <Row>
+      <Row disabled={request.complete} positive={podeFinalizar}>
         <Cell>{id}</Cell>
         <Cell>{request.description}</Cell>
         <Cell>{request.value}</Cell>
@@ -34,14 +37,18 @@ class RequestRow extends Component {
         <Cell>{request.complete}</Cell>
         <Cell>{request.aprovadoresCount}/{aprovadoresCount}</Cell>
         <Cell>
-          <Button color="green" basic onClick={this.aprovar}>
-            Aprovar
-          </Button>
+          { request.complete ? null : (
+            <Button color="green" basic onClick={this.aprovar}>
+              Aprovar
+            </Button>
+          )}
         </Cell>
         <Cell>
-          <Button color="red" basic onClick={this.finalizar}>
-            Finalizar
-          </Button>
+          { request.complete ? null : (
+            <Button color="red" basic onClick={this.finalizar}>
+              Finalizar
+            </Button>
+          )}
         </Cell>
       </Row>
     );
